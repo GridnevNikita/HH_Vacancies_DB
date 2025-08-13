@@ -1,4 +1,5 @@
 from typing import List
+
 from api_hh import HeadHunterAPI
 from db_manager import DBManager
 
@@ -10,11 +11,7 @@ def load_companies_and_vacancies(db: DBManager, api: HeadHunterAPI, company_ids:
     for employer_id in company_ids:
         # Получаем данные о компании
         company_info = api.get_company_info(employer_id)
-        db.insert_company(
-            employer_id=company_info["id"],
-            name=company_info["name"],
-            url=company_info.get("site_url")
-        )
+        db.insert_company(employer_id=company_info["id"], name=company_info["name"], url=company_info.get("site_url"))
 
         # Получаем вакансии компании
         vacancies = api.get_vacancies_for_company(employer_id)
@@ -32,5 +29,5 @@ def load_companies_and_vacancies(db: DBManager, api: HeadHunterAPI, company_ids:
                 salary_from=salary_from,
                 salary_to=salary_to,
                 currency=currency,
-                description=vac.get("snippet", {}).get("responsibility")
+                description=vac.get("snippet", {}).get("responsibility"),
             )
