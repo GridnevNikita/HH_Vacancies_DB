@@ -38,12 +38,12 @@ class HeadHunterAPI:
             page += 1
         return vacancies
 
-    def get_vacancies_for_companies(self, employer_ids: List[int]) -> Dict[int, List[Dict[str, Any]]]:
+    def get_vacancies_for_companies(self, employer_id: List[int]) -> Dict[int, List[Dict[str, Any]]]:
         """
         Получение вакансий для списка компаний.
         Возвращает словарь employer_id -> список вакансий.
         """
         result = {}
-        for eid in employer_ids:
-            result[eid] = self.get_vacancies_for_company(eid)
+        for employer in employer_id:
+            result[employer] = self.get_vacancies_for_company(employer)
         return result
